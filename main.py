@@ -73,6 +73,7 @@ class BloodElfFactory(EnemyFactory):
 
 
 def spawner_enemy() -> dict:
+    """Спаун врагов"""
     spawner_to_factory_mapping = {
         "Ogre": OgreFactory,
         "Troll": TrollFactory,
@@ -154,6 +155,7 @@ class MageFactory(HeroFactory):
 
 
 def spawner_hero() -> dict:
+    """Спаун героев."""
     spawner_to_factory_mapping = {
         "War": WarFactory,
         "Hunter": HunterFactory,
@@ -269,6 +271,7 @@ class TotemFactory(ItemsFactory):
 
 
 def spawner_items(hero) -> dict:
+    """Спаун предметов."""
     bonus = 10
     spawner_to_factory_mapping = {
         "Sword": SwordFactory,
@@ -307,6 +310,23 @@ def spawner_items(hero) -> dict:
         return action
 
 
+def fight_items(hero: dict) -> list:
+    """Функция создающая список доступного оружия"""
+    hero_ = hero['items']
+    hero_list = list(hero_.items())
+    fight_list = list()
+    if 'bow' and 'arrow' in hero_:
+        for index, value in enumerate(hero_list):
+            if value[0] in ('sword', 'bow', 'magick_book'):
+                fight_list.append(value)
+        return fight_list
+    else:
+        for index, value in enumerate(hero_list):
+            if value[0] in ('sword', 'magick_book'):
+                fight_list.append(value)
+        return fight_list
+
+
 def userChoice() -> int:
     """Выбор действия."""
     i = int(input())
@@ -317,23 +337,6 @@ def userChoice() -> int:
             print('Необходимо выбрать значения: "1" или "2"')
             i = int(input())
     return i
-
-
-def figth_items(hero: dict) -> list:
-    """Функция создающая список доступного оружия"""
-    hero_ = hero['items']
-    hero_list = list(hero_.items())
-    figth_list = list()
-    if 'bow' and 'arrow' in hero_:
-        for index, value in enumerate(hero_list):
-            if value[0] in ('sword', 'bow', 'magick_book'):
-                figth_list.append(value)
-        return figth_list
-    else:
-        for index, value in enumerate(hero_list):
-            if value[0] in ('sword', 'magick_book'):
-                figth_list.append(value)
-        return figth_list
 
 
 def choice_item(hero_items: dict) -> str:
@@ -510,6 +513,19 @@ def box(hero: dict) -> dict:
     box_item = spawner_items(hero)
     otv = userChoice()
     if otv == 1:
+        if len(hero['items']) == 4:
+            print(
+                f'Хм...твой инвентарь полон, посмотри {hero["items"]}. '
+                f'1 - Что-нибудь выбросить, 2 - Оставить все как есть')
+            otv3 = userChoice()
+            if otv3 == 1:
+                remove_ = hero['items']
+                print(f'Какой предмет выкинуть?')
+                delete = choice_item(remove_)
+                hero['items'].pop(delete)
+                hero['items'].update(box_item)
+                print(f'Инвентарь теперь выглядит так: {hero["items"]}')
+                return hero
         if list(box_item.keys()) == ['totem']:
             for value in list(hero['items']):
                 if value == 'totem':
@@ -524,19 +540,6 @@ def box(hero: dict) -> dict:
                     hero['items'].update(box_item)
                     print(f'Инвентарь теперь выглядит так: {hero["items"]}')
                     return hero
-        elif len(hero['items']) == 4:
-            print(
-                f'Хм...твой инвентарь полон, посмотри {hero["items"]}. '
-                f'1 - Что-нибудь выбросить, 2 - Оставить все как есть')
-            otv3 = userChoice()
-            if otv3 == 1:
-                remove_ = hero['items']
-                print(f'Какой предмет выкинуть?')
-                delete = choice_item(remove_)
-                hero['items'].pop(delete)
-                hero['items'].update(box_item)
-                print(f'Инвентарь теперь выглядит так: {hero["items"]}')
-                return hero
         else:
             hero['items'].update(box_item)
             print(f'Инвентарь теперь выглядит так: {hero["items"]}')
