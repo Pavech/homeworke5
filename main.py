@@ -367,7 +367,7 @@ def fight(hero: dict) -> int:
         f"БОЙ! Вы встречаете {enemy_race} со здоровьем равным {hp_enemy} видом атаки {type_attack} "
         f"и уроном равным {damage_enemy} "
     )
-    print(f'Твое здоровье {hero_hp} и твои предметы {(figth_items(hero_))}')
+    print(f'Твое здоровье {hero_hp} и твои предметы {(fight_items(hero_))}')
     print("Сделайте свой выбор: 1 - Вступить в бой; 2 - Покинуть поле сражения")
     otv1 = userChoice()
     if otv1 == 1:
@@ -379,7 +379,7 @@ def fight(hero: dict) -> int:
                 if otv2 == 1:
                     print(f'Твое здоровье {hero_hp}')
                     print(f'Какое оружие берем?')
-                    choice_weapon = choice_item(figth_items(hero_))
+                    choice_weapon = choice_item(fight_items(hero_))
                     print(choice_weapon)
                     my_choice_weapon = choice_weapon[0]
                     hero_attack = choice_weapon[1]
@@ -410,7 +410,7 @@ def fight(hero: dict) -> int:
                 otv2 = userChoice()
                 if otv2 == 1:
                     print(f'Какое оружие берем?')
-                    choice_weapon = choice_item(figth_items(hero_))
+                    choice_weapon = choice_item(fight_items(hero_))
                     print(choice_weapon)
                     my_choice_weapon = choice_weapon[0]
                     hero_attack = choice_weapon[1]
@@ -442,7 +442,7 @@ def fight(hero: dict) -> int:
                 otv2 = userChoice()
                 if otv2 == 1:
                     print(f'Какое оружие берем?')
-                    choice_weapon = choice_item(figth_items(hero_))
+                    choice_weapon = choice_item(fight_items(hero_))
                     print(choice_weapon)
                     my_choice_weapon = choice_weapon[0]
                     hero_attack = choice_weapon[1]
@@ -473,7 +473,7 @@ def fight(hero: dict) -> int:
                 otv2 = userChoice()
                 if otv2 == 1:
                     print(f'Какое оружие берем?')
-                    choice_weapon = choice_item(figth_items(hero_))
+                    choice_weapon = choice_item(fight_items(hero_))
                     print(choice_weapon)
                     my_choice_weapon = choice_weapon[0]
                     hero_attack = choice_weapon[1]
